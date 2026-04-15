@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+import mongoose from 'mongoose';
 
 // import dotenv and load environment variables from .env
 import dotenv from "dotenv";
@@ -8,8 +9,7 @@ dotenv.config();
 import { connectDB } from "./db.js";
 import { Song } from "./models/song.model.js";
 
-mongoose.connect(MONGO_URL).then(() => console.log("Connected")).catch(err => console.log(err));
-
+mongoose.connect(process.env.MONGO_URL).then(() => console.log("Connected")).catch(err => console.log(err));
 const app = express();
 const PORT = process.env.PORT || 5174;
 
