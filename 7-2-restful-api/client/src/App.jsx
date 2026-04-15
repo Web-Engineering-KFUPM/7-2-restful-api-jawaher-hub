@@ -173,10 +173,10 @@ LAB SETUP INSTRUCTIONS
  *    - On success → 204 No Content.
  *
  *  Syntax hint:
-      app.delete("______________", async (req, res) => {
-        const deleted = await __________.findByIdAndDelete(__________);
-        if (!deleted) return res.status(___).json({ message: "______________" });
-        res.status(___).end();
+      app.delete("api/songs/:id", async (req, res) => {
+        const deleted = await Song.findByIdAndDelete(req.params.id);
+        if (!deleted) return res.status(404).json({ message: "song not found" });
+        res.status(204).end();
       });
       
  */

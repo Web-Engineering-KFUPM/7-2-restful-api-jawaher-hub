@@ -8,6 +8,8 @@ dotenv.config();
 import { connectDB } from "./db.js";
 import { Song } from "./models/song.model.js";
 
+mongoose.connect(MONGO_URL).then(() => console.log("Connected")).catch(err => console.log(err));
+
 const app = express();
 const PORT = process.env.PORT || 5174;
 
@@ -61,5 +63,11 @@ app.put("/api/songs/:id", async (req, res) => {
 });
 
 // /api/songs/:id (Delete song)
+app.delete("/api/songs/:id", async (req, res) => {
+  const deleted = await Song.findByIdAndDelete(req.params.id);
 
+  if (!deleted) return res.status(404).json({ message: "Song not found" });
+
+  res.status(204).end();
+});
 app.listen(PORT, () => console.log(`API running on http://localhost:${PORT}`));
